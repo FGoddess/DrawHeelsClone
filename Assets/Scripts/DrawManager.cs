@@ -12,6 +12,8 @@ public class DrawManager : MonoBehaviour
 
     private Camera _camera;
 
+    private float _zOffset = 3;
+
     public event UnityAction<List<Vector3>> LineCreated;
 
     private void Start()
@@ -21,7 +23,7 @@ public class DrawManager : MonoBehaviour
 
     private void Update()
     {
-        Vector3 mousePos = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+        Vector3 mousePos = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _zOffset));
 
         if (Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject())
         {
@@ -31,7 +33,7 @@ public class DrawManager : MonoBehaviour
 
         if (Input.GetMouseButton(0) && EventSystem.current.IsPointerOverGameObject())
         {
-            _currentLine.SetPosition(mousePos);
+            _currentLine.SetPosition(new Vector3(mousePos.x, mousePos.y, transform.position.z + _zOffset - 1));
         }
 
         if (Input.GetMouseButtonUp(0) && EventSystem.current.IsPointerOverGameObject())

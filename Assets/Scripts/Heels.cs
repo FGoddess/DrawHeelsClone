@@ -6,8 +6,13 @@ public class Heels : MonoBehaviour
     [SerializeField] private Transform _rightLeg;
     [SerializeField] private Transform _leftLeg;
 
-    [SerializeField] private float _xOffset;
-    [SerializeField] private float _yOffset;
+    private GameObject _rightLegContainer;
+    private GameObject _leftLegContainer;
+
+    private void Start()
+    {
+        InstantiateContainers();
+    }
 
     private void OnEnable()
     {
@@ -19,13 +24,46 @@ public class Heels : MonoBehaviour
         _meshManager.MeshCreated -= OnMeshCreated;
     }
 
-    private void OnMeshCreated(GameObject heel)
+    private void InstantiateContainers()
     {
-        heel.transform.SetParent(_rightLeg);
-        heel.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-        heel.transform.localPosition = new Vector3(_xOffset, _yOffset, 0);
+        _rightLegContainer = Instantiate(new GameObject(), Vector3.zero, Quaternion.identity);
+        _leftLegContainer = Instantiate(new GameObject(), Vector3.zero, Quaternion.identity);
+    }
 
-        var secondLine = Instantiate(heel, _leftLeg.position, Quaternion.identity, _leftLeg);
-        secondLine.transform.localPosition = new Vector3(_xOffset, _yOffset, 0);
+    private void OnMeshCreated(GameObject rightHeel, GameObject leftHeel)
+    {
+        TryDestroyOldHeels();
+
+        _rightLegContainer.transform.position = rightHeel.GetComponent<Renderer>().bounds.center;
+        _leftLegContainer.transform.position = leftHeel.GetComponent<Renderer>().bounds.center;
+
+        rightHeel.transform.SetParent(_rightLegContainer.transform);
+        leftHeel.transform.SetParent(_leftLegContainer.transform);
+
+        _rightLegContainer.transform.SetParent(_rightLeg);
+        _leftLegContainer.transform.SetParent(_leftLeg);
+
+        _rightLegContainer.transform.localPosition = Vector3.zero;
+        _leftLegContainer.transform.localPosition = Vector3.zero;
+
+        _rightLegContainer.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+        _leftLegContainer.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+    }
+
+    private void TryDestroyOldHeels()
+    {
+        if(_rightLeg.childCount == 0)
+        {
+            Debug.Log("da");
+            return;
+        }
+
+        for(int i = 0; i < _rightLeg.childCount; i++)
+        {
+            Destroy(_rightLeg.GetChild(0).gameObject);
+            Destroy(_leftLeg.GetChild(0).gameObject);
+        }
+
+        InstantiateContainers();
     }
 }

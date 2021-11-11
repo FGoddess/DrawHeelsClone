@@ -12,9 +12,9 @@ public class MeshGenerator : MonoBehaviour
 
     [SerializeField] private GameObject _container;
 
-    private float _linesOffset = 0.5f;
+    private float _linesOffset = 0.1f;
 
-    public event UnityAction<GameObject> MeshCreated;
+    public event UnityAction<GameObject, GameObject> MeshCreated;
 
     private void Awake()
     {
@@ -49,7 +49,7 @@ public class MeshGenerator : MonoBehaviour
 
         CombineMeshes();
         _container.AddComponent<MeshCollider>();
-        MeshCreated?.Invoke(_container);
+        MeshCreated?.Invoke(_container, Instantiate(_container));
     }
 
     private void CreateCube(Vector3 v1, Vector3 v2, GameObject gameObject)
@@ -110,7 +110,8 @@ public class MeshGenerator : MonoBehaviour
         while (i < meshFilters.Length)
         {
             combine[i].mesh = meshFilters[i].sharedMesh;
-            combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
+            //combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
+            combine[i].transform = meshFilters[i].transform.worldToLocalMatrix;
             meshFilters[i].gameObject.SetActive(false);
 
             i++;

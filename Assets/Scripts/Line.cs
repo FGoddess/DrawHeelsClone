@@ -14,7 +14,7 @@ public class Line : MonoBehaviour
         _points = new List<Vector3>();
     }
 
-    public void SetPosition(Vector2 position)
+    public void SetPosition(Vector3 position)
     {
         if (!TryAppend(position))
         {
