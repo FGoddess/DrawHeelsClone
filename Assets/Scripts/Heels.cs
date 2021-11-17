@@ -54,7 +54,6 @@ public class Heels : MonoBehaviour
     {
         if(_rightLeg.childCount == 0)
         {
-            Debug.Log("da");
             return;
         }
 

@@ -1,40 +1,60 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Target : MonoBehaviour
 {
-    [SerializeField] private Vector3 _road;
     [SerializeField] private RayCastPoint _rayCastPoint;
 
-    [SerializeField] private bool _flag = true;
+    [SerializeField] private Transform _parent;
+    [SerializeField] private PlayerMover _player;
 
-    public event UnityAction<float> PositionChanged;
+    [SerializeField] private float _offset;
+
+    [SerializeField] private float _timer;
+    [SerializeField] private float _speed;
+
+    private Vector3 _currentY;
+
+    public event UnityAction PositionChanged;
+
 
     private void Start()
     {
+        transform.position = new Vector3(_parent.position.x + _offset, _parent.position.y, _parent.position.z);
+
         if (Physics.Raycast(_rayCastPoint.transform.position, Vector3.down, out RaycastHit hit))
         {
-            _road = hit.point;
+            _currentY = transform.position;
         }
+
+        _speed = _player.Speed * 2;
     }
 
     private void Update()
     {
-        if(Physics.Raycast(_rayCastPoint.transform.position, Vector3.down, out RaycastHit hit))
+        _timer += Time.deltaTime;
+
+        if (_timer < 1.5f)
+        {
+            transform.Translate(Vector3.right * Time.deltaTime * _speed);
+        }
+        if (_timer > 3f)
+        {
+            _timer = 0;
+        }
+
+        if (Physics.Raycast(_rayCastPoint.transform.position, Vector3.down, out RaycastHit hit))
         {
             Debug.DrawLine(_rayCastPoint.transform.position, hit.point, Color.red);
 
-            Debug.Log("_flag " + _flag);
-            Debug.Log("hit != _road " + (hit.point.y != _road.y));
+            float temp = hit.point.y + 0.2f;
 
-            if(hit.point.y != _road.y && _flag)
+            if (hit.collider.CompareTag("Obstacle") && temp != _currentY.y)
             {
-                Debug.Log("da");
-                _flag = false;
-                transform.position = new Vector3(transform.position.x, transform.position.y + (hit.point.y - _road.y), transform.position.z);
-                PositionChanged?.Invoke(hit.point.y - _road.y);
+                _currentY = new Vector3(transform.position.x, temp, transform.position.z);
+                transform.position = _currentY;
+
+                PositionChanged?.Invoke();
             }
         }
     }

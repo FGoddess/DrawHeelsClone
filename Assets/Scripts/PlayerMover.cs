@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMover : MonoBehaviour
@@ -7,6 +5,10 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private float _speed = 5f;
 
     [SerializeField] private Target _target;
+
+    private float _distance = 0.2f;
+
+    public float Speed => _speed;
 
     private void OnEnable()
     {
@@ -17,9 +19,9 @@ public class PlayerMover : MonoBehaviour
         _target.PositionChanged -= OnPosChanged;
     }
 
-    private void OnPosChanged(float y)
+    private void OnPosChanged()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y + y, transform.position.z);
+        transform.position = new Vector3(transform.position.x, _target.transform.position.y - _distance, transform.position.z);
     }
 
     private void Update()

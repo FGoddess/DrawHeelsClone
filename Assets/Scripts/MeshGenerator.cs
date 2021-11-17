@@ -48,7 +48,10 @@ public class MeshGenerator : MonoBehaviour
         }
 
         CombineMeshes();
-        _container.AddComponent<MeshCollider>();
+        var aa = _container.AddComponent<MeshCollider>();
+        aa.convex = true;
+        //var aaa = _container.AddComponent<Rigidbody>();
+        //aaa.freezeRotation = true;
         MeshCreated?.Invoke(_container, Instantiate(_container));
     }
 
