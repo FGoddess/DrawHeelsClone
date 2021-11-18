@@ -8,7 +8,15 @@ public class PlayerMover : MonoBehaviour
 
     private float _distance = 0.2f;
 
+    private Vector3 _moveVector;
+
     public float Speed => _speed;
+
+    private void Start()
+    {
+        transform.position = new Vector3(transform.position.x, _target.transform.position.y - _distance, transform.position.z);
+        _moveVector = Vector3.forward * _speed;
+    }
 
     private void OnEnable()
     {
@@ -26,7 +34,6 @@ public class PlayerMover : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.forward * Time.deltaTime * _speed);
+        transform.Translate(_moveVector * Time.deltaTime);
     }
-
 }

@@ -48,10 +48,6 @@ public class MeshGenerator : MonoBehaviour
         }
 
         CombineMeshes();
-        var aa = _container.AddComponent<MeshCollider>();
-        aa.convex = true;
-        //var aaa = _container.AddComponent<Rigidbody>();
-        //aaa.freezeRotation = true;
         MeshCreated?.Invoke(_container, Instantiate(_container));
     }
 
@@ -113,7 +109,6 @@ public class MeshGenerator : MonoBehaviour
         while (i < meshFilters.Length)
         {
             combine[i].mesh = meshFilters[i].sharedMesh;
-            //combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
             combine[i].transform = meshFilters[i].transform.worldToLocalMatrix;
             meshFilters[i].gameObject.SetActive(false);
 

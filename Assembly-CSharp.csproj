@@ -47,25 +47,26 @@
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Package</UnityProjectGenerator>
-    <UnityProjectGeneratorVersion>2.0.11</UnityProjectGeneratorVersion>
+    <UnityProjectGeneratorVersion>2.0.12</UnityProjectGeneratorVersion>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2020.3.19f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Line.cs" />
-    <Compile Include="Assets\Scripts\Heels.cs" />
-    <Compile Include="Assets\Scripts\DrawManager.cs" />
-    <Compile Include="Assets\Scripts\PlayerMover.cs" />
-    <Compile Include="Assets\FastIK\Scripts\Sample\SampleProcedualAnimation.cs" />
     <Compile Include="Assets\FastIK\Scripts\FastIK\FastIKFabric.cs" />
-    <Compile Include="Assets\FastIK\Scripts\Sample\SampleSinMover.cs" />
-    <Compile Include="Assets\FastIK\Scripts\FastIK\FastIKCCD.cs" />
-    <Compile Include="Assets\FastIK\Scripts\Sample\SampleRotator.cs" />
-    <Compile Include="Assets\FastIK\Scripts\FastIK\FastIKLook.cs" />
+    <Compile Include="Assets\Scripts\Heels.cs" />
+    <Compile Include="Assets\Scripts\MeshGenerator.cs" />
     <Compile Include="Assets\Scripts\Target.cs" />
     <Compile Include="Assets\Scripts\RayCastPoint.cs" />
-    <Compile Include="Assets\Scripts\MeshGenerator.cs" />
+    <Compile Include="Assets\FastIK\Scripts\FastIK\FastIKLook.cs" />
+    <Compile Include="Assets\FastIK\Scripts\Sample\SampleProcedualAnimation.cs" />
+    <Compile Include="Assets\FastIK\Scripts\Sample\SampleRotator.cs" />
+    <Compile Include="Assets\FastIK\Scripts\FastIK\FastIKCCD.cs" />
+    <Compile Include="Assets\FastIK\Scripts\Sample\SampleSinMover.cs" />
+    <Compile Include="Assets\Scripts\DrawManager.cs" />
+    <Compile Include="Assets\Scripts\PlayerMover.cs" />
+    <Compile Include="Assets\Scripts\EndPoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\FastIK\Documentation.txt" />

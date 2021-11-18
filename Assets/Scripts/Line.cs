@@ -28,7 +28,6 @@ public class Line : MonoBehaviour
 
     private bool TryAppend(Vector2 position)
     {
-        // синглтон в манагере, поменять 0,1 на smooth
         return _lineRenderer.positionCount == 0 || Vector3.Distance(_lineRenderer.GetPosition(_lineRenderer.positionCount - 1), position) > 0.2f;
     }
 }
